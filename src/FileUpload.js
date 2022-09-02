@@ -8,6 +8,7 @@ export default function FileUpload() {
 
   const [fileName, setFileName] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
+  const [bucketFileName, setBucketFileName] = React.useState('');
 
   const onFileChange = (event) => {
     const pdfFile = event?.target?.files?.[0];
@@ -41,7 +42,8 @@ export default function FileUpload() {
     axios.get('https://7o2zbtjo2c.execute-api.ap-south-1.amazonaws.com/uploads')
       .then(function (response) {
         // handle success
-        const { Key: newFileName, uploadURL } = response.data;
+        const { Key: uploadedFileName, uploadURL } = response.data;
+        setBucketFileName(uploadedFileName);
         console.log(response);
         uploadFile(pdfFile, uploadURL);
       })
@@ -54,7 +56,7 @@ export default function FileUpload() {
 
   return (
     <div>
-      {fileName && <div>{isLoading && 'Uploading:'} {fileName}</div>}
+      {fileName && <div>{isLoading && 'Uploading:'} {fileName} {bucketFileName && ` -> ${bucketFileName}`}</div>}
       <Stack direction="row" alignItems="center" spacing={2}>
         <Button variant="contained" component="label" disabled={isLoading}>
           Upload
