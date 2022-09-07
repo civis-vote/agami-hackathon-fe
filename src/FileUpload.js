@@ -59,7 +59,7 @@ export default function FileUpload() {
       {fileName && <div>{isLoading && 'Uploading:'} {fileName} {bucketFileName && ` -> ${bucketFileName}`}</div>}
       <Stack direction="row" alignItems="center" spacing={2}>
         <Button variant="contained" component="label" disabled={isLoading}>
-          Upload
+          Upload PDF
           <input hidden accept="application/pdf" type="file" onChange={onFileChange} />
         </Button>
         {isLoading && <CircularProgress disableShrink />}

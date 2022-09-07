@@ -1,0 +1,31 @@
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  padding: 15px 20px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.navbar-title-container {
+  display: relative;
+}
+
+.navbar-title {
+  position: absolute;
+  left: 44.29%;
+  top: 38.14%;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  color: #0e73b9;
+}
