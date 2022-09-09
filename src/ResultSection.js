@@ -23,7 +23,7 @@ const ResultSection = (props) => {
 
   const PDFToText = () => {
     setCurrentStage(PROCESSING_STEPS.convertToText);
-    axios.post('https://s38e2rufuc.execute-api.ap-south-1.amazonaws.com/Test/data-preprocessing', {
+    axios.post('https://e4scfhqzh5dd7fswiywrhawz5e0ebxdh.lambda-url.ap-south-1.on.aws/', {
       fileName,
     })
       .then(function (response) {
