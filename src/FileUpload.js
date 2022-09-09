@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
+import { PROCESSING_STEPS } from './constants';
 const axios = require('axios').default;
 
-export default function FileUpload() {
-
-  const [fileName, setFileName] = React.useState('');
+export default function FileUpload(props) {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [bucketFileName, setBucketFileName] = React.useState('');
+  const { setBucketFileName, setHasFinishedUpload, setCurrentStage, currentStage } = props;
 
   const onFileChange = (event) => {
     const pdfFile = event?.target?.files?.[0];
@@ -20,7 +18,6 @@ export default function FileUpload() {
 
     console.log(pdfFile);
 
-    setFileName(pdfFile.name);
     requestUploadUrl(pdfFile);
   };
 
@@ -34,11 +31,14 @@ export default function FileUpload() {
     console.log({ uploadUrl, pdfFile, options });
     axios.put(uploadUrl, pdfFile, options).finally(() => {
       setIsLoading(false);
+      setHasFinishedUpload(true);
     });
   }
 
   const requestUploadUrl = (pdfFile) => {
     setIsLoading(true);
+    setHasFinishedUpload(false);
+    setCurrentStage(PROCESSING_STEPS.s3Upload)
     axios.get('https://7o2zbtjo2c.execute-api.ap-south-1.amazonaws.com/uploads')
       .then(function (response) {
         // handle success
@@ -54,15 +54,17 @@ export default function FileUpload() {
       });
   }
 
+  if (currentStage > PROCESSING_STEPS.initial) {
+    return <></>;
+  }
+
   return (
     <div>
-      {fileName && <div>{isLoading && 'Uploading:'} {fileName} {bucketFileName && ` -> ${bucketFileName}`}</div>}
-      <Stack direction="row" alignItems="center" spacing={2}>
+      <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
         <Button variant="contained" component="label" disabled={isLoading}>
           Upload PDF
           <input hidden accept="application/pdf" type="file" onChange={onFileChange} />
         </Button>
-        {isLoading && <CircularProgress disableShrink />}
       </Stack></div>
   );
 }
