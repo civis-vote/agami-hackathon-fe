@@ -3,7 +3,7 @@ import { PROCESSING_STEPS } from "./constants";
 const axios = require('axios').default;
 
 const ResultSection = (props) => {
-  const { fileName, hasFinishedUpload, setCurrentStage } = props;
+  const { fileName, resultText, currentStage, setResultText, hasFinishedUpload, setCurrentStage, setHasError } = props;
 
   const analyzeText = (textFileName) => {
     console.log({ textFileName });
@@ -14,9 +14,12 @@ const ResultSection = (props) => {
       .then(function (response) {
         // handle success
         console.log(response.data);
+        setResultText(response.data);
+        setCurrentStage(PROCESSING_STEPS.done);
       })
       .catch(function (error) {
         // handle error
+        setHasError(true)
         console.log(error);
       })
   }
@@ -33,6 +36,7 @@ const ResultSection = (props) => {
       })
       .catch(function (error) {
         // handle error
+        setHasError(true)
         console.log(error);
       })
   }
@@ -47,9 +51,16 @@ const ResultSection = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasFinishedUpload, fileName]);
 
-  return <div>
-
-  </div>;
+  return <>{
+    currentStage === PROCESSING_STEPS.done &&
+    resultText &&
+    <div>
+      <h1>Output</h1>
+      <div className="result-section">
+        {resultText}
+      </div>
+    </div>
+  }</>;
 };
 
 export default ResultSection;

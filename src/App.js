@@ -19,6 +19,8 @@ function App() {
   const [fileName, setFileName] = useState('');
   const [hasFinishedUpload, setHasFinishedUpload] = useState(false);
   const [currentStage, setCurrentStage] = useState(PROCESSING_STEPS.initial);
+  const [hasError, setHasError] = useState(false);
+  const [resultText, setResultText] = useState('');
   console.log('hasFinishedUpload', hasFinishedUpload)
 
   return (
@@ -26,12 +28,12 @@ function App() {
       <div className="App">
         <Navbar />
         {currentStage >= PROCESSING_STEPS.s3Upload && currentStage < PROCESSING_STEPS.done &&
-          <StepsTimeline currentStep={currentStage} />
+          <StepsTimeline hasError={hasError} currentStep={currentStage} />
         }
         {(currentStage <= PROCESSING_STEPS.s3Upload || currentStage === PROCESSING_STEPS.done) &&
-          <FileUpload currentStage={currentStage} bucketFileName={fileName} setBucketFileName={setFileName} setHasFinishedUpload={setHasFinishedUpload} setCurrentStage={setCurrentStage} />
+          <FileUpload setHasError={setHasError} currentStage={currentStage} bucketFileName={fileName} setBucketFileName={setFileName} setHasFinishedUpload={setHasFinishedUpload} setCurrentStage={setCurrentStage} />
         }
-        <ResultSection fileName={fileName} hasFinishedUpload={hasFinishedUpload} setCurrentStage={setCurrentStage} />
+        <ResultSection currentStage={currentStage} setResultText={setResultText} resultText={resultText} fileName={fileName} hasFinishedUpload={hasFinishedUpload} setCurrentStage={setCurrentStage} />
       </div>
     </ThemeProvider>
   );
