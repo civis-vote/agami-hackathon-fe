@@ -6,7 +6,7 @@ const axios = require('axios').default;
 
 export default function FileUpload(props) {
   const [isLoading, setIsLoading] = React.useState(false);
-  const { setBucketFileName, setHasFinishedUpload, setCurrentStage, currentStage } = props;
+  const { setBucketFileName, setHasFinishedUpload, setCurrentStage, currentStage, setHasError } = props;
 
   const onFileChange = (event) => {
     const pdfFile = event?.target?.files?.[0];
@@ -29,7 +29,9 @@ export default function FileUpload(props) {
     };
 
     console.log({ uploadUrl, pdfFile, options });
-    axios.put(uploadUrl, pdfFile, options).finally(() => {
+    axios.put(uploadUrl, pdfFile, options).catch(() => {
+      setHasError(true);
+    }).finally(() => {
       setIsLoading(false);
       setHasFinishedUpload(true);
     });
@@ -50,6 +52,7 @@ export default function FileUpload(props) {
       .catch(function (error) {
         // handle error
         setIsLoading(false);
+        setHasError(true);
         console.log(error);
       });
   }
