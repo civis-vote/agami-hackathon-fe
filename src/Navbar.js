@@ -5,9 +5,7 @@ const Navbar = () => {
     <div>
       <img src="/civis-logo.svg" alt="Civis logo" />
     </div>
-    <div className="navbar-title-container">
-      <span className="navbar-title">Legal Text Summariser</span>
-    </div>
+    <div className="navbar-title">Legal Text Summariser</div>
   </div>
 };
 
