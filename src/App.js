@@ -33,7 +33,7 @@ function App() {
         {(currentStage <= PROCESSING_STEPS.s3Upload || currentStage === PROCESSING_STEPS.done) &&
           <FileUpload setHasError={setHasError} currentStage={currentStage} bucketFileName={fileName} setBucketFileName={setFileName} setHasFinishedUpload={setHasFinishedUpload} setCurrentStage={setCurrentStage} />
         }
-        <ResultSection currentStage={currentStage} setResultText={setResultText} resultText={resultText} fileName={fileName} hasFinishedUpload={hasFinishedUpload} setCurrentStage={setCurrentStage} />
+        <ResultSection setHasError={setHasError} currentStage={currentStage} setResultText={setResultText} resultText={resultText} fileName={fileName} hasFinishedUpload={hasFinishedUpload} setCurrentStage={setCurrentStage} />
       </div>
     </ThemeProvider>
   );
