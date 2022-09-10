@@ -8,7 +8,7 @@ const ResultSection = (props) => {
   const analyzeText = (textFileName) => {
     console.log({ textFileName });
     setCurrentStage(PROCESSING_STEPS.transform);
-    axios.post('https://s38e2rufuc.execute-api.ap-south-1.amazonaws.com/Test/send-text-to-model', {
+    axios.post('https://xfdor7g6aaum2lksjvyoxmiv340xpzcm.lambda-url.ap-south-1.on.aws/', {
       fileName: textFileName,
     })
       .then(function (response) {
