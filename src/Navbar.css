@@ -9,14 +9,12 @@
   align-items: flex-start;
 }
 
-.navbar-title-container {
-  display: relative;
-}
-
 .navbar-title {
   position: absolute;
-  left: 44.29%;
+  left: 0;
   top: 38.14%;
+  text-align: center;
+  width: 100%;
 
   font-style: normal;
   font-weight: 700;
