@@ -8,6 +8,6 @@ export const PROCESSING_STEPS = {
 
 export const stepsText = {
   [PROCESSING_STEPS.s3Upload]: 'Upload PDF',
-  [PROCESSING_STEPS.convertToText]: 'Convert to text',
+  [PROCESSING_STEPS.convertToText]: 'Processing PDF',
   [PROCESSING_STEPS.transform]: 'Summarize text'
 }
